@@ -1,0 +1,116 @@
+{% extends "base.html.twig" %}
+{% block title %}Product details - Web Store{% endblock %}
+{% block body %}
+<div class="content">
+    <h1>Product details</h1>
+    <div>
+        <a href="{{ path('app_vendor_product_list') }}"><button class="small-neutral">back</button></a>
+    <div class="empty-space-15px"></div>
+    </div>
+    {% if product %}
+        <div class="inline">
+            <table class="product-details">
+                <tr>
+                    <th class="product-details-left">Name</th>
+                    <th class="product-details-right">{{ product.name }}</th>
+                </tr>
+                <tr class="product-details">
+                    <td class="product-details-left">Code</td>
+                    <td class="product-details-right">{{ product.code }}</td>
+                </tr>
+                <tr class="product-details">
+                    <td class="product-details-left">Unit</td>
+                    <td class="product-details-right">{{ product.unit }}</td>
+                </tr>
+                <tr class="product-details">
+                    <td class="product-details-left">VAT rate</td>
+                    <td class="product-details-right">{{ product.vatrate }}</td>
+                </tr>
+                <tr class="product-details">
+                    <td class="product-details-left">Price</td>
+                    <td class="product-details-right">{{ product.price }} {{ product.currency }}/{{ product.unit }}</td>
+                </tr>
+                <tr class="product-details">
+                    <td class="product-details-left">Available</td>
+                    <td class="product-details-right">
+                        {% if product.blocked == 1 %}<p class="out-of-stock">out of stock</p>
+                        {% else %}<p class="in-stock">in stock</p>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr class="product-details">
+                    <td class="product-details-left">Description</td>
+                    <td class="product-details-right">{{ product.description }}</td>
+                </tr>
+            </table>
+            <table class="product-details">
+                <tr>
+                    <th class="product-details-left">Manage</th>
+                    <th class="product-details-right"></th>
+                </tr>
+                <tr class="product-details">
+                    <td class="product-details-left">Change price</td>
+                    <td class="product-details-right">
+                        <form action="{{ path('app_change_price') }}" method="post">
+                            <input type="hidden" name="code" value="{{ product.code }}">
+                            <input class="price" name="new-price" type="number"  step="0.01" required="required" min="0" max="1000000000">
+                            <button type="submit" class="small-alternative">change</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr class="product-details">
+                    <td class="product-details-left">Change available</td>
+                    <td class="product-details-right">
+                        <form action="{{ path('app_change_available') }}" method="post">
+                            <input type="hidden" name="code" value="{{ product.code }}">
+                            <select name="new-available" class="mid">
+                                <option value="1">out of stock</option>
+                                <option value="0">in stock</option>
+                            </select>
+                            <button type="submit" class="small-alternative">change</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr class="product-details">
+                    <td class="product-details-left">Update photo</td>
+                    <td class="product-details-right">
+                        <form action="{{ path('app_update_photo') }}" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="code" value="{{ product.code }}">
+                            <input type="file" name="new-photo" required="required" class="file">
+                            <button type="submit" class="small-alternative">update</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr class="product-details">
+                    <td class="product-details-left">Change description</td>
+                    <td class="product-details-right">
+                        <form action="{{ path('app_change_description') }}" method="post">
+                            <input type="hidden" name="code" value="{{ product.code }}">
+                            <textarea class="add-product" name="new-description" required="required" minlength="3" maxlangth="1000"></textarea><br>
+                            <button type="submit" class="small-alternative">change</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr class="product-details">
+                    <td class="product-details-left">Delete product</td>
+                    <td class="product-details-right">
+                        <form action="{{ path('app_delete_product') }}" method="post">
+                            <input type="hidden" name="code" value="{{ product.code }}">
+                            <button type="submit" class="small-negative">delete</button>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="inline">
+            {% if product.hasPhoto == true %}
+                <img class="photo-main" src="{{ asset('/uploads/photos/products/') }}{{ product.code }}.jpg" alt="{{ product.name }}">
+            {% else %}
+                <img class=" photo-main" src="{{ asset('/uploads/photos/') }}default.jpg" alt="{{ product.name }}">
+            {% endif %}
+        </div>
+    {% else %}
+        <div class="neutralInfo">Product does not exist.</div>
+    {% endif %}
+</div>
+{% endblock %}

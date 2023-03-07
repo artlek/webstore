@@ -1,0 +1,42 @@
+{% extends "base.html.twig" %}
+{% block title %}Your profile - Web Store{% endblock %}
+{% block body %}
+<div class="content">
+    <h1>Your profile</h1>
+    <table class="user-details">
+        <tr>
+            <th class="user-details-left">Name</th>
+            <th class="user-details-right">{{ vendor.name }}</th>
+            </tr>
+        <tr class="user-details">
+            <td class="user-details-left">email</td>
+            <td class="user-details-right">{{ vendor.email }}</td>
+        </tr>
+        <tr class="user-details">
+            <td class="user-details-left">TIN</td>
+            <td class="user-details-right">{{ vendor.tin }}</td>
+        </tr>
+        <tr class="user-details">
+            <td class="user-details-left">Street</td>
+            <td class="user-details-right">{{ vendor.street }}</td>
+        </tr>
+        <tr class="user-details">
+            <td class="user-details-left">Zipcode</td>
+            <td class="user-details-right">{{ vendor.zipcode }}</td>
+        </tr>
+        <tr class="user-details">
+            <td class="user-details-left">City</td>
+            <td class="user-details-right">{{ vendor.city }}</td>
+        </tr>
+        <tr class="user-details">
+            <td class="user-details-left">State</td>
+            <td class="user-details-right">{{ vendor.state }}</td>
+        </tr>
+        <tr class="user-details">
+            <td class="user-details-left">Currency</td>
+            <td class="user-details-right">{{ vendor.currency }}</td>
+        </tr>
+    </table>
+    <a href="{{ path('app_logout') }}"><button class="small-negative">logout</button></a>
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base.html.twig" %}
+{% block title %}Your profile - Web Store{% endblock %}
+{% block body %}
+<div class="content">
+    <h1>Your profile</h1>
+    <table class="user-details">
+        <tr>
+            <th class="user-details-left"></th>
+            <th class="user-details-right">{{ client.name }} {{ client.surname}}</th>
+            </tr>
+        <tr class="user-details">
+            <td class="user-details-left">email</td>
+            <td class="user-details-right">{{ client.email }}</td>
+        </tr>
+        <tr class="user-details">
+            <td class="user-details-left">Telephone</td>
+            <td class="user-details-right">{{ client.tel }}</td>
+        </tr>
+        <tr class="user-details">
+            <td class="user-details-left">Street</td>
+            <td class="user-details-right">{{ client.street }}</td>
+        </tr>
+        <tr class="user-details">
+            <td class="user-details-left">Zipcode</td>
+            <td class="user-details-right">{{ client.zipcode }}</td>
+        </tr>
+        <tr class="user-details">
+            <td class="user-details-left">City</td>
+            <td class="user-details-right">{{ client.city }}</td>
+        </tr>
+        <tr class="user-details">
+            <td class="user-details-left">State</td>
+            <td class="user-details-right">{{ client.state }}</td>
+        </tr>
+    </table>
+<a href="{{ path('app_logout') }}"><button class="small-negative">logout</button></a>
+</div>
+{% endblock %}

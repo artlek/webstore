@@ -1,0 +1,31 @@
+{% extends "base.html.twig" %}
+{% block title %}About - Web Store{% endblock %}
+{% block body %}
+    <div class="content">
+        <h1>About</h1>
+            <p class="content">
+            Author: artur.lekston@gmail.com
+            <br><br>
+            Web store is a simple online store application.
+            You can contribute or develop it, but do not use it for commercial purpose. 
+            The application is created based on Symfony 6 using MySQL database.
+            For informations how to configure and use it see the <a class="link" href="{{ path('app_manual') }}">user manual</a>.
+            <br><br>
+            Main functions of the application:
+            </p>
+            <ul class="content">
+                <li class="content">adding products to product list,</li>
+                <li class="content">browsing products,</li>
+                <li class="content">adding products to the cart,</li>
+                <li class="content">placing an order for products (savin cart),</li>
+                <li class="content">changing order statuses,</li>
+                <li class="content">changing product prices and descriptions,</li>
+                <li class="content">updating product photos,</li>
+                <li class="content">showing order calculating,</li>
+                <li class="content">managing VAT rates and units of measure.</li>
+            </ul>
+            </p>
+        <br>
+        <p class="app-version">version: {{ version }}</p>
+    </div>
+{% endblock %}

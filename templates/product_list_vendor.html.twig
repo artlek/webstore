@@ -1,0 +1,45 @@
+{% extends "base.html.twig" %}
+{% block title %}Product list - Web Store{% endblock %}
+{% block body %}
+<div class="content">
+    <h1>Product list</h1>
+    <a href="{{ path('app_vendor_add_product') }}"><button class="small-positive">add</button></a><br>
+    {% if products %}
+        <table class="products">
+            <tr>
+                <th class="product-list-counter"></th>
+                <th class="product-list-name">name</th>
+                <th class="product-list-code">code</th>
+                <th class="product-list-unit">unit</th>
+                <th class="product-list-vatrate">VAT rate</th>
+                <th class="product-list-price">price</th>
+                <th class="product-list-status">status</th>
+                <th class="product-list-action"></th>
+            </tr>
+        {% set counter = 0 %}
+        {% for product in products %}
+            {% set counter = counter + 1 %}
+            <tr class="product-list">
+                <td class="product-list-counter">{{ counter }}.</td>
+                <td class="product-list-name">{{ product.name }}</td>
+                <td class="product-list-code">{{ product.code }}</td>
+                <td class="product-list-unit">{{ product.unit }}</td>
+                <td class="product-list-vatrate">{{ product.vatrate }}</td>
+                <td class="product-list-price">{{ product.price }} {{ product.currency}} </td>
+                <td class="product-list-status">
+                    {% if product.blocked == '1' %}out of stock{% endif %}
+                    {% if product.blocked == '0' %}in stock{% endif %}
+                </td>
+                <td class="product-list-action">
+                    <a class="small-neutral" href="/vendor/product/{{ product.code }}">
+                        <button class="small-alternative">manage</button></a>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% else %}
+        <div class="neutralInfo">There is no products.</div>
+    {% endif %}
+</div>
+{% endblock %}

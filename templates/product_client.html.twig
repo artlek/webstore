@@ -1,0 +1,67 @@
+{% extends "base.html.twig" %}
+{% block title %}Product details - Web Store{% endblock %}
+{% block body %}
+    <h1>Product details</h1>
+    {% if product %}
+        <div>
+            <a class="small-neutral" href="{{ path('app_product_list') }}"><button class="small-neutral">back</button></a>
+        </div>
+            <div class="empty-space-15px"></div>
+        <div class="inline">
+            <table class="product-details">
+                <tr>
+                    <th class="product-details-left">Name</th>
+                    <th class="product-details-right">{{ product.name }}</th>
+                </tr>
+                <tr class="product-details">
+                    <td class="product-details-left">Code</td>
+                    <td class="product-details-right">{{ product.code }}</td>
+                </tr>
+                <tr class="product-details">
+                    <td class="product-details-left">Unit</td>
+                    <td class="product-details-right">{{ product.unit }}</td>
+                </tr>
+                <tr class="product-details">
+                    <td class="product-details-left">VAT rate</td>
+                    <td class="product-details-right">{{ product.vatrate }}</td>
+                </tr>
+                <tr class="product-details">
+                    <td class="product-details-left">Available</td>
+                    <td class="product-details-right">
+                        {% if product.blocked == 1 %}<p class="out-of-stock">out of stock</p>
+                        {% else %}<p class="in-stock">in stock</p>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr class="product-details">
+                    <td class="product-details-left">Description</td>
+                    <td class="product-details-right">{{ product.description }}</td>
+                </tr>
+            </table>
+            <p class="price-header">price</p>
+            <p class="price">{{ product.price }} {{ product.currency }}/{{ product.unit }}</p>
+            <div class="empty-space-15px"></div>
+            {% if product.blocked == '0' %}
+            <form action="{{ path('app_add_to_cart') }}" method="post">
+                <input type="hidden" name="code" value="{{ product.code }}">
+                <input type="hidden" name="name" value="{{ product.name }}">
+                <input type="hidden" name="price" value="{{ product.price }}">
+                <input type="hidden" name="unit" value="{{ product.unit }}">
+                <input type="hidden" name="vatrate" value="{{ product.vatrate }}">
+                <input class="add-product-quantity" name="quantity" required="required" type="number" min="1" max="999999">
+                <button type="submit" class="small-positive">add to cart</button>
+            </form>
+            <div class="empty-space-15px"></div>
+            {% endif %}
+        </div>
+        <div class="inline">
+            {% if product.hasPhoto == true %}
+                <img class="photo-main" src="{{ asset('/uploads/photos/products/') }}{{ product.code }}.jpg" alt="{{ product.name }}">
+            {% else %}
+                <img class="photo-main" src="{{ asset('/uploads/photos/') }}default.jpg" alt="{{ product.name }}">
+            {% endif %}
+        </div>
+    {% else %}
+        <div class="neutralInfo">Product does not exist.</div>
+    {% endif %}
+{% endblock %}

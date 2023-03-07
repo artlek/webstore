@@ -1,0 +1,40 @@
+{% extends "base.html.twig" %}
+{% block title %}Order list - Web Store{% endblock %}
+{% block body %}
+<div class="content">
+    <h1>Order list</h1>
+    {% if orders %}
+        <table class="products">
+            <tr>
+                <th class="order-list-counter"></th>
+                <th class="order-list-client">Client</th>
+                <th class="order-list-no">Order No</th>
+                <th class="order-list-value">Value</th>
+                <th class="order-list-date">Date</th>
+                <th class="order-list-status">Status</th>
+                <th class="order-list-action"></th>
+            </tr>
+            {% set counter = 0 %}
+            {% for order in orders %}
+            {% set counter = counter + 1 %}    
+            <tr class="order-list">
+                <td class="order-list-counter">{{ counter }}. </td>
+                <td class="order-list-client">{{ order.client }}</td>
+                <td class="order-list-no">{{ order.id }}</td>
+                <td class="order-list-value">{{ order.total }}</td>
+                <td class="order-list-date">{{ order.datetime }}</td>
+                <td class="order-list-status">{{ order.status }}</td>
+                <td class="order-list-action">
+                    <form action="/vendor/order/{{ order.id }}" method="post">
+                        <input type="hidden" name="id" value="{{ order.id }}">
+                        <button type="submit" class="small-alternative">manage</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% else %}
+        <div class="neutralInfo">There is no orders.</div>
+    {% endif %}
+</div>
+{% endblock %}

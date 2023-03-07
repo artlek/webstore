@@ -20,5 +20,17 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
+    app.menu_builder:
+        class: App\Menu\MenuBuilder
+        arguments: ["@knp_menu.factory"]
+        tags:
+            - { name: knp_menu.menu_builder, method: createClientMenu, alias: clientMenu }
+            - { name: knp_menu.menu_builder, method: createVendortMenu, alias: vendorMenu }
+            - { name: knp_menu.menu_builder, method: createGuestMenu, alias: guestMenu }
+            - { name: knp_menu.menu_builder, method: createFooterMenu, alias: footerMenu }
+            - { name: knp_menu.menu_builder, method: createLoginMenu, alias: loginMenu }
+             # The alias is what is used to retrieve the menu
+
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+{% block title %}Login - Web Store{% endblock %}
+{% block body %}
+    <h1>Login form</h1>
+    {% if error %}
+        <div class="login-error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+    <form action="{{ path('app_login') }}" method="post">
+        <input type="text" id="username" name="_username" value="{{ last_username }}" class="login">
+        <label for="username"><p class="login-label">Email </p></label>
+        <input type="password" id="password" name="_password" class="login">
+        <label for="password"><p class="login-label">Password </p></label>
+        <input type="hidden" name="_target_path" value="/">
+        <button type="submit" class="login">Login</button>
+    </form>
+{% endblock %}

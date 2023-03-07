@@ -1,0 +1,38 @@
+{% extends "base.html.twig" %}
+{% block title %}Vat rates - Web Store{% endblock %}
+{% block body %}
+    <h1>Vat rates</h1>
+    {% if vats %}
+        <table class="unit-vat">
+            <tr>
+                <th class="unit-vat-counter"></th>
+                <th class="unit-vat-fullName">Vat rate</th>
+                <th class="unit-vat-action"></th>
+            </tr>
+            {% set counter = 0 %}
+            {% for vat in vats %}
+            {% set counter = counter + 1 %}
+            <tr class="unit-vat">
+                <td class="unit-vat-counter">{{ counter }}.</td>
+                <td class="unit-vat-fullName">{{ vat.vatRate }}</td>
+                <td class="unit-vat-action">
+                    <form action="{{ path('app_delete_vat') }}" method="post">
+                        <input type="hidden" name="vat-id" value="{{ vat.id }}">
+                        <button type="submit" class="small-negative">delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <div class="neutralInfo">There is no vat rates set.</div>  
+    {% endif %}
+    <div class="empty-space-15px"></div>
+    <h2>Add vat rate</h2>
+    {{ form_start(form) }}
+    {{ form_widget(form.vatRate, {'attr': {'class': 'add-vat'}}) }}
+    <div class="add-vat-error">{{ form_errors(form.vatRate) }}</div>
+    <p class="add-vat-label">Vat rate</p>
+    {{ form_row(form.add, {'attr': {'class': 'add-vat'}, 'label': 'Add'}) }}
+    {{ form_end(form) }}
+{% endblock %}

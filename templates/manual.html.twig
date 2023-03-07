@@ -1,0 +1,90 @@
+{% extends "base.html.twig" %}
+{% block title %}Manual - Web Store{% endblock %}
+{% block body %}
+    <div class="content">
+        <h1>User manual</h1>
+        <h2>GENERAL</h2>
+        <h3>Registration</h3>
+        <p class="content">
+        To register new account go to <a class="link" href="{{ path('app_register') }}">registration</a> section in menu on the left side. 
+        Fill the form correctly. Note that first registration refers to the vendor. 
+        It means that account for the vendor is created first. Another registrated accounts are customers.
+        </p>
+        <h3>Login</h3>
+        <p class="content">
+        Go to <a class="link" href="{{ path('app_login') }}">login</a> in menu on the left side to log into your account.
+        After logging in you can see the informations about your profile by clicking in your name in menu on the left side.
+        Here you can also logout of the webstore.
+        <h2>FOR CUSTOMERS</h2>
+        <h3>Products browsing</h3>
+        </p>
+        <p class="content">
+        Products list is available on home page of the application or in <a class="link" href="{{ path('app_product_list') }}">products</a> section (in menu on the left side). 
+        After clicking in the product you will be redirected to products page that shows product details.
+        <h3>Adding product into the cart</h3>
+        </p>
+        <p class="content">
+        To add a product into the cart just choose concrete product from list, 
+        fill the quantity and confirm by 'add to cart' button. Your <a class="link" href="{{ path('app_cart') }}">cart</a> is available in menu on the left side.
+        <h3>Editing the cart</h3>
+        </p>
+        <p class="content">
+        If you need to edit product quantity you can do it in the cart (in menu of the left side). 
+        Just choose new quantity next to the product and confirm by clicking 'edit' button. 
+        You can also delete the product from the cart by pressing 'delete' button. 
+        To erase your cart click in 'delete cart' button.
+        </p>
+        <h3>Saving the cart</h3>
+        <p class="content">
+        To save your cart just choose 'save order'. A new order will be created.
+        <h3>Order browsing</h3>
+        <p class="content">
+        In section <a class="link" href="{{ path('app_client_orders') }}">orders</a> (in menu on the left side) there is list of all your orders. 
+        By clicking 'details' of the order you can see all its details:
+        </p>
+        <ul class="content">
+            <li class="content">order number,</li>
+            <li class="content">all products from the order,</li>
+            <li class="content">products units and vat rates,</li>
+            <li class="content">products quantity,</li> 
+            <li class="content">order value,</li>
+            <li class="content">order status.</li>
+        </ul>
+        <h2>FOR VENDOR</h2>
+        <h3>Dashboard</h3>
+        <p class="content">
+        In <a class="link" href="{{ path('app_vendor_dashboard') }}">dashboard</a> section you can see some handy information like:
+        </p>
+        <ul class="content">
+            <li class="content">number of all products in webstore,</li>
+            <li class="content">total number of orders,</li>
+            <li class="content">number of new orders.</li>
+        </ul>
+        <h3>Products browsing</h3>
+        <p class="content">
+        The product list is available in <a class="link" href="{{ path('app_vendor_product_list') }}">products</a> section (in menu on the left side). 
+        The details will be displayed on product page when clicked 'manage' button.
+        </p>
+        <h3>Adding and deleting products</h3>
+        <p class="content">
+        Go to <a class="link" href="{{ path('app_vendor_product_list') }}">products</a> section and choose 'add product' button in the top of the page to add new product. 
+        Fill correctly all fields and save it. To delete the product click into 'delete' button on product page.
+        </p>
+        <h3>Product management</h3>
+        <p class="content">
+        Product management is possible on <a class="link" href="{{ path('app_vendor_product_list') }}">product page</a>. It is possible to:
+        </p>
+        <ul class="content">
+            <li class="content">edit the price,</li>
+            <li class="content">change product availability,</li>
+            <li class="content">change product photo,</li>
+            <li class="content">edit product description.</li>
+        </ul>
+        <h3>Order management</h3>
+        <p class="content">
+        In 'orders' section there are all placed orders of the webstore. 
+        Choose 'manage' button to check the order details. 
+        To change the status of one of them (for example when the order is completing or sent) choose the right option and confirm it.
+        </p>
+    </div>
+{% endblock %}

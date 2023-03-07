@@ -1,0 +1,29 @@
+{% extends "base.html.twig" %}
+{% block title %}Product list - Web Store{% endblock %}
+{% block body %}
+    <h1>Product list</h1>
+    {% if products %}
+        {% for product in products %}
+        <a class="product" href="product/{{ product.code }}">
+            <div class="single-product">
+                <div class="thumb">
+                    {% if product.hasPhoto == true %}
+                        <img src="{{ asset('/uploads/photos/products/') }}{{ product.code }}thumb.jpg" alt="{{ product.name }}">
+                    {% else %}
+                        <img src="{{ asset('/uploads/photos/') }}thumb.jpg" alt="{{ product.name }}">
+                    {% endif %}
+                </div>
+            <p class="single-product-code">{{ product.code }}</p>
+            <p class="single-product-name">{{ product.name }}</p>
+        </a>
+            <p class="price-header">Price</p>
+            <p class="price">{{ product.price }} {{ product.currency }}/{{ product.unit }}</p>
+                {% if product.blocked == 1 %}<p class="out-of-stock">out-of-stock</p>
+                {% else %}<p class="in-stock">in stock</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="neutralInfo">There is no products.</div>
+    {% endif %}
+{% endblock %}

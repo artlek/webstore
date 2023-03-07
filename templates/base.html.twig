@@ -2,18 +2,58 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Web Store{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
-
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&family=Roboto">
+            <link href="{{ asset('style/main.css') }}" rel="stylesheet"/>
         {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <div class="left">
+            <img src="{{ asset('/uploads/photos/') }}logo.jpg"><br>
+            <div class="log-info">
+            {% if is_granted('ROLE_CLIENT') %}
+                 Logged as: <br><a href="{{ path('app_client_profile') }}" class="log-menu">{{ app.user.name }} {{ app.user.surname }}</a> ({{ app.user.email }}) <br><a class="log-menu" href="{{ path('app_logout') }}">Logout</a>
+            {% elseif is_granted('ROLE_VENDOR') %}
+                 Logged as: <br><a href="{{ path('app_vendor_profile') }}" class="log-menu">{{ app.user.name }}</a> ({{ app.user.email }}) <br><a class="log-menu" href="{{ path('app_logout') }}">Logout</a>
+            {% else %}
+                {{ knp_menu_render('loginMenu')}}
+            {% endif %}
+            </div>  
+            {% block menu %}
+                {% if is_granted('ROLE_CLIENT') %}
+                    {{ knp_menu_render('clientMenu') }}
+                {% elseif is_granted('ROLE_VENDOR') %}
+                    {{ knp_menu_render('vendorMenu') }}
+                {% else %}
+                    {{ knp_menu_render('guestMenu')}}
+                {% endif %}
+            {% endblock %}
+            {% block footer %}
+                <div class="footer">
+                    {{ knp_menu_render('footerMenu') }}
+                </div>
+            {% endblock %}
+        </div>
+        <div class="right">
+            {% for message in app.flashes('positiveInfo') %}
+                <div class="positiveInfoHeader">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            {% for message in app.flashes('negativeInfo') %}
+                <div class="negativeInfoHeader">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            {% for message in app.flashes('neutralInfo') %}
+                <div class="neutralInfoHeader">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            {% block body %}
+            {% endblock %}
+        </div>
     </body>
 </html>

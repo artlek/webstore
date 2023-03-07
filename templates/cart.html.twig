@@ -1,0 +1,77 @@
+{% extends "base.html.twig" %}
+{% block title %}Cart - Web Store{% endblock %}
+{% block body %}
+<div class="content">
+    <h1>Cart</h1>
+    {% if cart is defined %}
+        <table class="cart">
+            <tr>
+                <th class="product-list-counter"></th>
+                <th class="product-list-name">name</th>
+                <th class="product-list-code">code</th>
+                <th class="product-list-quantity">quantity</th>
+                <th class="product-list-unit">unit</th>
+                <th class="product-list-price">price</th>
+                <th class="product-list-vatrate">vatrate</th>
+                <th class="product-list-value">value</th>
+                <th class="product-list-action"></th>
+            </tr>
+            {% set counter = 0 %}
+            {% for product in cart %}
+            {% set counter = counter + 1 %}
+            <tr class="product-list">
+                <td class="product-list-counter">{{ counter }}.</td>
+                <td class="product-list-name">{{ product.name }}</td>
+                <td class="product-list-code">{{ product.code }}</td>
+                <td class="product-list-quantity">{{ product.quantity }}</td>
+                <td class="product-list-unit">{{ product.unit }}</td>
+                <td class="product-list-price">{{ product.price }}</td>
+                <td class="product-list-vatrate">{{ product.vatrate }}</td>
+                <td class="product-list-value">{{ product.total }}</td>
+                <td class="product-list-action">
+                    <form class="buttons" action="{{ path('app_edit_cart_product') }}" method="post">
+                        <input type="hidden" name="code" value="{{ product.code }}">
+                        <input type="hidden" name="name" value="{{ product.name }}">
+                        <input type="number" name="new-quantity" class="add-product-quantity">
+                        <button type="submit" class="small-positive">edit</button>
+                    </form>
+                    <form class="buttons" action="{{ path('app_delete_cart_product') }}" method="post">
+                    <input type="hidden" name="code" value="{{ product.code }}">
+                        <input type="hidden" name="name" value="{{ product.name }}">
+                        <button type="submit" class="small-negative">delete</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+        </table>
+        <table class="order-details">
+            <tr>
+                <th class="calculate-left">Calculate</th>
+                <th class="calculate-right"></th>
+            </tr>
+            <tr class="calculate">
+                <td class="calculate-left">Products</td>
+                <td class="calculate-right">{{ calculate.products }}</td>
+            </tr>
+            <tr class="calculate">
+                <td class="calculate-left">Items</td>
+                <td class="calculate-right">{{ calculate.items }}</td>
+            </tr>
+            <tr class="calculate">
+                <td class="calculate-left">Value</td>
+                <td class="calculate-right">{{ calculate.value }}</td>
+            </tr>
+        </table>
+        <form class="buttons" action="{{ path('app_save_cart') }}" method="post">
+            <input type="hidden" name="save-cart" value="save-cart">
+            <button type="submit" class="small-positive">save order</button>
+        </form>
+        <form class="buttons" action="{{ path('app_delete_cart') }}" method="post">
+            <input type="hidden" name="delete-cart" value="delete-cart">
+            <button type="submit" class="small-negative">delete cart</button>
+        </form>
+    {% else %}
+        <div class="neutralInfo">Cart is empty</div>
+    {% endif %}
+</div>
+{% endblock %}

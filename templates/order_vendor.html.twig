@@ -1,0 +1,81 @@
+{% extends "base.html.twig" %}
+{% block title %}Order details - Web Store{% endblock %}
+{% block body %}
+<div class="content">
+    <h1>Order details</h1>
+    <a href="{{ path('app_vendor_orders') }}"><button class="small-neutral">back</button></a>
+    <div class="empty-space-15px"></div>
+    {% if order %}
+        <table class="order-details">
+            <tr>
+                <th class="order-details-left">Order no</th>
+                <th class="order-details-right">{{ order.id }}</th>
+            </tr>
+            <tr class="order-details">
+                <td class="order-details-left">Client</td>
+                <td class="order-details-right">{{ order.client }}</td>
+            </tr>
+            <tr class="order-details">
+                <td class="order-details-left">Products</td>
+                <td class="order-details-right">{{ order.productCount }}</td>
+            </tr>
+            <tr class="order-details">
+                <td class="order-details-left">Items</td>
+                <td class="order-details-right">{{ order.items }}</td>
+            </tr>
+            <tr class="order-details">
+                <td class="order-details-left">Value</td>
+                <td class="order-details-right">{{ order.total }}</td>
+            </tr>
+            <tr class="order-details">
+                <td class="order-details-left">Date</td>
+                <td class="order-details-right">{{ order.datetime }}</td>
+            </tr>
+            <tr class="order-details">
+                <td class="order-details-left">Status</td>
+                <td class="order-details-right">{{ order.status }}</td>
+            </tr>
+            {% if order.status != 'sent' %}
+                <tr class="order-details">
+                    <td class="order-details-left">Change status</td>
+                    <td class="order-details-right">
+                    {{ form_start(form, {'attr': {'class': 'change-order-status'}}) }}
+                        {{ form_widget(form.status, {'attr': {'class': 'change-order-status'}, 'label': 'status'}) }}
+                        {{ form_widget(form.save, {'attr': {'class': 'small-positive'}, 'label': 'save'}) }}
+                    {{ form_end(form) }}
+                    </td>
+                </tr>
+            {% endif %}
+        </table>
+        <h3>Products</h3>
+        <table class="products">
+            <tr>
+                <th class="product-list-counter"></th>
+                <th class="product-list-name">name</th>
+                <th class="product-list-code">code</th>
+                <th class="product-list-quantity">quantity</th>
+                <th class="product-list-unit">unit</th>
+                <th class="product-list-price">price</th>
+                <th class="product-list-vatrate">vatrate</th>
+                <th class="product-list-value">value</th>
+            </tr>
+            {% set counter = 0 %}
+            {% for product in order.products %}
+            {% set counter = counter + 1 %}
+            <tr class="product-list">
+                <td class="product-list-counter">{{ counter }}.</td>
+                <td class="product-list-name">{{ product.name }}</td>
+                <td class="product-list-code">{{ product.code }}</td>
+                <td class="product-list-quantity">{{ product.quantity }}</td>
+                <td class="product-list-unit">{{ product.unit }}</td>
+                <td class="product-list-price">{{ product.price }}</td>
+                <td class="product-list-vatrate">{{ product.vatrate }}</td>
+                <td class="product-list-value">{{ product.total }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% else %}
+        <div class="neutralInfo">Order does not exist.</div>
+    {% endif %}
+</div>
+{% endblock %}

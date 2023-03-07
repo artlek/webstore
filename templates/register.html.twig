@@ -1,0 +1,41 @@
+{% extends "base.html.twig" %}
+{% block title %}Registration - Web Store{% endblock %}
+{% block body %}
+{% if form is defined %}
+    {{ form_start(form) }}
+        <h1>Client Registration</h1>
+        <div class="inline">
+            {{ form_widget(form.email, {'attr': {'class': 'registration'}}) }}
+            <div class="registration-error">{{ form_errors(form.email) }}</div>
+            <p class="registration-label">Email</p>
+            {{ form_widget(form.plainPassword, {'attr': {'class': 'registration'}}) }}
+            <div class="registration-error">{{ form_errors(form.plainPassword) }}</div>
+            <p class="registration-label">Password</p>
+            {{ form_widget(form.name, {'attr': {'class': 'registration'}}) }}
+            <div class="registration-error">{{ form_errors(form.name) }}</div>
+            <p class="registration-label">Name</p>
+            {{ form_widget(form.surname, {'attr': {'class': 'registration'}}) }}
+            <div class="registration-error">{{ form_errors(form.surname) }}</div>
+            <p class="registration-label">Surname</p>
+            {{ form_widget(form.tel, {'attr': {'class': 'registration'}}) }}
+            <div class="registration-error">{{ form_errors(form.tel) }}</div>
+            <p class="registration-label">Telephone number</p>
+        </div>
+        <div class="inline">
+            {{ form_widget(form.street, {'attr': {'class': 'registration'}}) }}
+            <div class="registration-error">{{ form_errors(form.street) }}</div>
+            <p class="registration-label">Street</p>
+            {{ form_widget(form.zipcode, {'attr': {'class': 'registration'}}) }}
+            <div class="registration-error">{{ form_errors(form.zipcode) }}</div>
+            <p class="registration-label">Zipcode</p>
+            {{ form_widget(form.city, {'attr': {'class': 'registration'}}) }}
+            <div class="registration-error">{{ form_errors(form.city) }}</div>
+            <p class="registration-label">City</p>
+            {{ form_widget(form.state, {'attr': {'class': 'registration'}}) }}
+            <div class="registration-error">{{ form_errors(form.state) }}</div>
+            <p class="registration-label">State</p>
+            {{ form_row(form.submit, {'attr': {'class': 'registration'}, 'label': 'Register'}) }}
+        </div>
+    {{ form_end(form) }}
+{% endif %}
+{% endblock %}

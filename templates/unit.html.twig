@@ -1,0 +1,43 @@
+{% extends "base.html.twig" %}
+{% block title %}Units of measure - Web Store{% endblock %}
+{% block body %}
+    <h1>Units of measure</h1>
+    {% if units %}
+        <table class="unit-vat">
+            <tr>
+                <th class="unit-vat-counter"></th>
+                <th class="unit-vat-fullName">Full name</th>
+                <th class="unit-vat-shortName">Short name</th>
+                <th class="unit-vat-action"></th>
+            </tr>
+            {% set counter = 0 %}
+            {% for unit in units %}
+            {% set counter = counter + 1 %}
+            <tr class="unit-vat">
+                <td class="unit-vat-counter">{{ counter }}.</td>
+                <td class="unit-vat-fullName">{{ unit.fullName }}</td>
+                <td class="unit-vat-shortName">{{ unit.shortName }}</td>
+                <td class="unit-vat-action">
+                    <form action="{{ path('app_delete_unit') }}" method="post">
+                        <input type="hidden" name="unit-id" value="{{ unit.id }}">
+                        <button type="submit" class="small-negative">delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <div class="neutralInfo">There is no units set.</div>
+    {% endif %}
+    <div class="empty-space-15px"></div>
+    <h2>Add unit</h2>
+    {{ form_start(form) }}
+        {{ form_widget(form.fullName, {'attr': {'class': 'add-unit'}}) }}
+        <div class="add-unit-error">{{ form_errors(form.fullName) }}</div>
+        <p class="add-unit-label">Full name</p>
+        {{ form_widget(form.shortName, {'attr': {'class': 'add-unit'}}) }}
+        <div class="add-unit-error">{{ form_errors(form.shortName) }}</div>
+        <p class="add-unit-label">Short name</p>
+        {{ form_row(form.add, {'attr': {'class': 'add-unit'}, 'label': 'Add'}) }}
+    {{ form_end(form) }}
+{% endblock %}

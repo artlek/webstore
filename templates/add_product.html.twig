@@ -1,0 +1,40 @@
+{% extends "base.html.twig" %}
+{% block title %}Add product - Web Store{% endblock %}
+{% block body %}
+    <h1>Add product</h1>
+    <a href="{{ path('app_vendor_product_list') }}"><button class="small-neutral">back</button></a><br>
+    <div class="empty-space-15px"></div>
+    {% if noUnitsOrVats is defined %}
+        <div class="negativeInfo">{{ noUnitsOrVats }}</div>
+        {% endif %}
+    {% if form is defined %}
+        {{ form_start(form) }}
+            <div class="inline">
+            {{ form_widget(form.code, {'attr': {'class': 'add-product'}}) }}
+            <div class="add-product-error">{{ form_errors(form.code) }}</div>
+            <p class="add-product-label">Code</p>
+            {{ form_widget(form.name, {'attr': {'class': 'add-product'}}) }}
+            <div class="add-product-error">{{ form_errors(form.name) }}</div>
+            <p class="add-product-label">Name</p>
+            {{ form_widget(form.price, {'attr': {'class': 'add-product'}}) }}
+            <div class="add-product-error">{{ form_errors(form.price) }}</div>
+            <p class="add-product-label">Price</p>
+            {{ form_widget(form.unit, {'attr': {'class': 'add-product'}}) }}
+            <div class="add-product-error">{{ form_errors(form.unit) }}</div>
+            <p class="add-product-label">Unit of measure</p>
+            {{ form_widget(form.vatRate, {'attr': {'class': 'add-product'}}) }}
+            <div class="add-product-error">{{ form_errors(form.vatRate) }}</div>
+            <p class="add-product-label">VAT rate</p>
+            </div>
+            <div class="inline">
+            {{ form_widget(form.photo, {'attr': {'class': 'add-product'}}) }}
+            <div class="add-product-error">{{ form_errors(form.photo) }}</div>
+            <p class="add-product-label">Photo</p>
+            {{ form_widget(form.description, {'attr': {'class': 'add-product'}}) }}
+            <div class="add-product-error">{{ form_errors(form.description) }}</div>
+            <p class="add-product-label">Description</p>
+            {{ form_row(form.submit, {'attr': {'class': 'add-product'}, 'label': 'Add Product'}) }}
+            </div>
+        {{ form_end(form) }}
+    {% endif %}
+{% endblock %}
